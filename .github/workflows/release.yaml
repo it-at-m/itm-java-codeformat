@@ -1,0 +1,41 @@
+name: release
+
+# Run workflow on commits to the `main` branch
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot-build:
+        description: 'Snapshot build (y/n)?'
+        required: true
+        default: 'y'
+      maven:
+        description: 'Release Maven (y/n)?'
+        required: true
+        default: 'y'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Java and Maven
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
+      - name: Remove SNAPSHOT
+        if: github.event.inputs.snapshot-build == 'n'
+        run: |
+          mvn versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
+
+      - name: Release Maven package
+        if: github.event.inputs.maven == 'y'
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.gpg_private_key }}
+          gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          nexus_username: ${{ secrets.nexus_username }}
+          nexus_password: ${{ secrets.nexus_password }}
