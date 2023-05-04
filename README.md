@@ -18,7 +18,7 @@ In den Einstellungen (`Window` - `Preferences`) im Reiter `Java / Codestyle / Fo
 #### IntelliJ
 In den Einstellungen (`File` - `Settings`) im Reiter `Editor / Code Style / Java` unter den `Scheme Actions` mittels `Import Scheme - Eclipse XML Profile` die Datei importieren und anschließend mit `Apply` übernehmen und `Close` das Fenster schließen.
 
-![Screenshot IntelliJ Java Formatter Einstellungen](docs/intellij_formatter.PNG)
+![Screenshot IntelliJ Java Formatter Einstellungen](docs/intellij_formatter.png)
 
 ### Maven
 
