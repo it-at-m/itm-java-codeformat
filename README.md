@@ -33,7 +33,7 @@ Maven Plugin `spotless-maven-plugin` hinzufügen:
     <dependency>
       <groupId>de.muenchen.itm</groupId>
       <artifactId>itm-java-codeformat</artifactId>
-      <version>1.0.0</version>
+      <version>${itm-codeformat.version}</version> 
     </dependency>
   </dependencies>
   <configuration>
