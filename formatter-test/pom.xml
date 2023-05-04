@@ -29,7 +29,7 @@
 					<dependency>
 						<groupId>de.muenchen.itm</groupId>
 						<artifactId>itm-java-codeformat</artifactId>
-						<version>1.0.0</version>
+						<version>${project.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
