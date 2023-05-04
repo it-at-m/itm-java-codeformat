@@ -16,7 +16,7 @@ public class FormatterTest {
      * a long long long long long long long long long long long long long long long long long long
      * long long long long long long long long long long long long long longlong long long long
      * javadoc comment
-     * 
+     *
      * @param param1
      * @param param2
      * @param param3
