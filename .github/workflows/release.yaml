@@ -1,41 +1,55 @@
 name: release
 
-# Run workflow on commits to the `main` branch
 on:
   workflow_dispatch:
     inputs:
       snapshot-build:
-        description: 'Snapshot build (y/n)?'
-        required: true
-        default: 'y'
-      maven:
-        description: 'Release Maven (y/n)?'
+        description: 'Snapshot release(y/n)?'
         required: true
         default: 'y'
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out Git repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install Java and Maven
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: 'adopt'
 
       - name: Remove SNAPSHOT
         if: github.event.inputs.snapshot-build == 'n'
         run: |
           mvn versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
-      - name: Release Maven package
-        if: github.event.inputs.maven == 'y'
+      - name: Release to Nexus Repository
         uses: samuelmeuli/action-maven-publish@v1
         with:
           gpg_private_key: ${{ secrets.gpg_private_key }}
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
+
+      - name: Create Git Tag
+        if: github.event.inputs.snapshot-build == 'n'
+        run: |
+          export version=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout')
+          git config user.name ITM-Bot
+          git config user.email opensource@muenchen.de
+          git tag -a $version -m "$version"
+          git push origin $version
+
+      - name: Increment Version
+        if: github.event.inputs.snapshot-build == 'n'   ##Parameter - Increment only after release
+        run: |
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
+          git config user.name ITM-Bot
+          git config user.email opensource@muenchen.de
+          git add .
+          git commit -m "updated version in pom.xml"
+          git push
+
