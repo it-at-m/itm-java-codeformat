@@ -6,9 +6,6 @@
 	<artifactId>itm-java-codeformat-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.3</version>
-	<name>itm-java-codeformat</name>
-	<description>it@M java Codeformat</description>
-	<url>https://github.com/it-at-m/itm-java-codeformat</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -23,32 +20,6 @@
 		<module>formatter</module>
 		<module>formatter-test</module>
 	</modules>
-
-	<licenses>
-		<license>
-			<name>MIT License</name>
-		</license>
-	</licenses>
-
-	<developers>
-		<developer>
-			<name>Michael Prankl</name>
-			<organization>Landeshauptstadt München</organization>
-			<url>https://github.com/eidottermihi</url>
-			<roles>
-				<role>initiator</role>
-				<role>developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Mirna Rodic</name>
-			<organization>Landeshauptstadt München</organization>
-			<url>https://github.com/mirrodi</url>
-			<roles>
-				<role>developer</role>
-			</roles>
-		</developer>
-	</developers>
 
 	<!-- for releasing with maven release -->
 	<scm>
@@ -89,11 +60,6 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>3.0.0-M6</version>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>3.0.1</version>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -119,36 +85,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>deploy</id>
-			<build>
-				<plugins>
-					<!-- GPG plugin -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-								<configuration>
-									<!-- Prevent `gpg` from using pinentry programs -->
-									<gpgArguments>
-										<arg>--pinentry-mode</arg>
-										<arg>loopback</arg>
-									</gpgArguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>
