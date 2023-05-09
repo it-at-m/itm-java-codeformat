@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.muenchen.itm</groupId>
 		<artifactId>itm-java-codeformat-parent</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.2</version>
 		<relativePath>..</relativePath>
 	</parent>
 
