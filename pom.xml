@@ -5,7 +5,7 @@
 	<groupId>de.muenchen.itm</groupId>
 	<artifactId>itm-java-codeformat-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<name>itm-java-codeformat</name>
 	<description>it@M java Codeformat</description>
 	<url>https://github.com/it-at-m/itm-java-codeformat</url>
