@@ -6,6 +6,9 @@
 	<artifactId>itm-java-codeformat-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.2</version>
+	<name>itm-java-codeformat</name>
+	<description>it@M java Codeformat</description>
+	<url>https://github.com/it-at-m/itm-java-codeformat</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -20,6 +23,32 @@
 		<module>formatter</module>
 		<module>formatter-test</module>
 	</modules>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Michael Prankl</name>
+			<organization>Landeshauptstadt München</organization>
+			<url>https://github.com/eidottermihi</url>
+			<roles>
+				<role>initiator</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Mirna Rodic</name>
+			<organization>Landeshauptstadt München</organization>
+			<url>https://github.com/mirrodi</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<!-- for releasing with maven release -->
 	<scm>
