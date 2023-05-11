@@ -1,6 +1,6 @@
 # itm-java-codeformat
 
-Bietet die it@M Codeformatter Regeln für Java als Artefakt an, sodass diese von [Spotless](https://github.com/revelc/formatter-maven-plugin) automatisiert [während des Maven Builds](#Maven) geprüft (`mvn spotless:check`) bzw. umgesetzt (`mvn spotless:apply`) werden können.
+Bietet die it@M Codeformatter Regeln für Java als Artefakt an, sodass diese von [Spotless](https://github.com/diffplug/spotless) automatisiert [während des Maven Builds](#Maven) geprüft (`mvn spotless:check`) bzw. umgesetzt (`mvn spotless:apply`) werden können.
 
 ## Verwendung
 
