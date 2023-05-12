@@ -11,11 +11,13 @@ Bietet die it@M Codeformatter Regeln für Java als Artefakt an, sodass diese von
 Sowohl Eclipse als auch IntelliJ unterstützen den Import von Eclipse XML Profilen.
 
 #### Eclipse
+
 In den Einstellungen (`Window` - `Preferences`) im Reiter `Java / Codestyle / Formatter` mittels `Import` die Datei importieren und anschließend mit `Apply and Close` übernehmen.
 
 ![Screenshot Eclipse Java Formatter Einstellungen](docs/eclipse_formatter.PNG)
 
 #### IntelliJ
+
 In den Einstellungen (`File` - `Settings`) im Reiter `Editor / Code Style / Java` unter den `Scheme Actions` mittels `Import Scheme - Eclipse XML Profile` die Datei importieren und anschließend mit `Apply` übernehmen und `Close` das Fenster schließen.
 
 ![Screenshot IntelliJ Java Formatter Einstellungen](docs/intellij_formatter.png)
@@ -31,9 +33,9 @@ Maven Plugin `spotless-maven-plugin` hinzufügen:
   <version>2.28.0</version>
   <dependencies>
     <dependency>
-      <groupId>de.muenchen.itm</groupId>
+      <groupId>de.muenchen.oss</groupId>
       <artifactId>itm-java-codeformat</artifactId>
-      <version>${itm-codeformat.version}</version> 
+      <version>${itm-codeformat.version}</version>
     </dependency>
   </dependencies>
   <configuration>
@@ -64,6 +66,7 @@ Dadurch wird beim Build automatisch der Code auf Einhaltung der Formatierungsreg
 Weitere Einstellungen siehe [offizielle Plugin-Dokumentation](https://github.com/diffplug/spotless/tree/main/plugin-maven).
 
 ### Terminal
+
 Eine Anwendung der Formatierungsregeln (-> Formattieren) kann manuell über `mvn spotless:apply` durchgeführt werden.
 
 Eine Überprüfung der Formatierungsregeln kann ebenso manuell über `mvn spotless:check` durchgeführt werden.
