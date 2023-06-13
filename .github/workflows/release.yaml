@@ -3,54 +3,58 @@ name: release
 on:
   workflow_dispatch:
     inputs:
-      snapshot-build:
-        description: 'Snapshot release(y/n)?'
+      branch:
+        description: "Branch to release from ?"
         required: true
-        default: 'y'
+        default: "main"
+      release-version:
+        description: "Release version ?"
+        required: true
+      release-tag:
+        description: "Release tag (tagNameFormat) ?"
+        required: true
+        default: "@{project.version}"
+      development-version:
+        description: "Next Development version ?"
+        required: true
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
+      - name: Check out Git repository
         uses: actions/checkout@v3
-
-      - name: Setup Java
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Setup git user
+        uses: fregante/setup-git-user@v2
+      - name: Set up JDK 17 and OSSRH auth / GPG signing
         uses: actions/setup-java@v3
         with:
-          java-version: 17
-          distribution: 'adopt'
-
-      - name: Remove SNAPSHOT
-        if: github.event.inputs.snapshot-build == 'n'
-        run: |
-          mvn versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
-
-      - name: Release to Nexus Repository
-        uses: samuelmeuli/action-maven-publish@v1
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
+          server-id: "ossrh"
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
+          gpg-private-key: ${{ secrets.gpg_private_key }}
+          gpg-passphrase: SIGN_KEY_PASS
+      - name: Perform maven release
+        run: >
+          mvn -B -ntp release:prepare release:perform
+          -DreleaseVersion=${{ github.event.inputs.release-version }} 
+          -DdevelopmentVersion=${{ github.event.inputs.development-version }} 
+          -DtagNameFormat=${{ github.event.inputs.release-tag }} 
+          -Darguments="-DskipTests"
+        env:
+          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          OSSRH_USERNAME: ${{ secrets.nexus_username }}
+          OSSRH_PASSWORD: ${{ secrets.nexus_password }}
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
         with:
-          gpg_private_key: ${{ secrets.gpg_private_key }}
-          gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.nexus_username }}
-          nexus_password: ${{ secrets.nexus_password }}
-
-      - name: Create Git Tag
-        if: github.event.inputs.snapshot-build == 'n'
-        run: |
-          export version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          git config user.name ITM-Bot
-          git config user.email opensource@muenchen.de
-          git tag -a $version -m "$version"
-          git push origin $version
-
-      - name: Increment Version
-        if: github.event.inputs.snapshot-build == 'n'
-        run: |
-          mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
-          git config user.name ITM-Bot
-          git config user.email opensource@muenchen.de
-          git add .
-          git commit -m "updated version in pom.xml"
-          git push
-
+          tag_name: ${{ github.event.inputs.release-tag }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
