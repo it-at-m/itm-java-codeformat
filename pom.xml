@@ -49,11 +49,10 @@
 		</developer>
 	</developers>
 
-	<!-- for releasing with maven release -->
 	<scm>
 		<url>https://github.com/it-at-m/itm-java-codeformat</url>
-		<connection>scm:git:git@github.com:it-at-m/itm-java-codeformat.git</connection>
-		<developerConnection>scm:git:git@github.com:it-at-m/itm-java-codeformat.git</developerConnection>
+		<connection>scm:git:https://github.com/it-at-m/itm-java-codeformat.git</connection>
+		<developerConnection>scm:git:https://github.com/it-at-m/itm-java-codeformat.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
