@@ -11,9 +11,8 @@ on:
         description: "Release version ?"
         required: true
       release-tag:
-        description: "Release tag (tagNameFormat) ?"
+        description: "Release tag ?"
         required: true
-        default: "@{project.version}"
       development-version:
         description: "Next Development version ?"
         required: true
@@ -44,7 +43,7 @@ jobs:
           mvn -B -ntp release:prepare release:perform
           -DreleaseVersion=${{ github.event.inputs.release-version }} 
           -DdevelopmentVersion=${{ github.event.inputs.development-version }} 
-          -DtagNameFormat=${{ github.event.inputs.release-tag }} 
+          -Dtag=${{ github.event.inputs.release-tag }} 
           -Darguments="-DskipTests"
         env:
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
