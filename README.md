@@ -8,7 +8,7 @@ Bietet die it@M Codeformatter Regeln für Java als Artefakt an, sodass diese von
 
 [java_codestyle_formatter.xml](formatter/src/main/resources/itm-java-codeformat/java_codestyle_formatter.xml) herunterladen und speichern und anschließend in der IDE importieren.
 
-Sowohl Eclipse als auch IntelliJ unterstützen den Import von Eclipse XML Profilen.
+Die gängigen Java IDE's unterstützen den Import von Eclipse XML Profilen.
 
 #### Eclipse
 
@@ -21,6 +21,17 @@ In den Einstellungen (`Window` - `Preferences`) im Reiter `Java / Codestyle / Fo
 In den Einstellungen (`File` - `Settings`) im Reiter `Editor / Code Style / Java` unter den `Scheme Actions` mittels `Import Scheme - Eclipse XML Profile` die Datei importieren und anschließend mit `Apply` übernehmen und `Close` das Fenster schließen.
 
 ![Screenshot IntelliJ Java Formatter Einstellungen](docs/intellij_formatter.png)
+
+#### VS Code
+
+In VS Code kann direkt auf das XML aus dem Repository in den Workspace Settings verwiesen werden.
+
+`<project>/.vscode/settings.json`:
+```json
+{
+    "java.format.settings.url": "https://raw.githubusercontent.com/it-at-m/itm-java-codeformat/main/formatter/src/main/resources/itm-java-codeformat/java_codestyle_formatter.xml"
+}
+```
 
 ### Maven
 
