@@ -33,9 +33,9 @@ jobs:
           java-version: "17"
           distribution: "temurin"
           cache: "maven"
-          server-id: "ossrh"
-          server-username: OSSRH_USERNAME
-          server-password: OSSRH_PASSWORD
+          server-id: "central"
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.gpg_private_key }}
           gpg-passphrase: SIGN_KEY_PASS
       - name: Perform maven release
@@ -47,8 +47,8 @@ jobs:
           -Darguments="-DskipTests"
         env:
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
-          OSSRH_USERNAME: ${{ secrets.nexus_username }}
-          OSSRH_PASSWORD: ${{ secrets.nexus_password }}
+          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
