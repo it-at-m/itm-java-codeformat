@@ -38,37 +38,45 @@ In VS Code kann direkt auf das XML aus dem Repository in den Workspace Settings 
 Maven Plugin `spotless-maven-plugin` hinzufügen:
 
 ```xml
+<!-- https://mvnrepository.com/artifact/com.diffplug.spotless/spotless-maven-plugin -->
 <plugin>
-  <groupId>com.diffplug.spotless</groupId>
-  <artifactId>spotless-maven-plugin</artifactId>
-  <version>2.28.0</version>
-  <dependencies>
-    <dependency>
-      <groupId>de.muenchen.oss</groupId>
-      <artifactId>itm-java-codeformat</artifactId>
-      <version>${itm-codeformat.version}</version>
-    </dependency>
-  </dependencies>
-  <configuration>
-    <java>
-      <includes>
-        <include>src/main/java/**/*.java</include> <!-- Check application code -->
-        <include>src/test/java/**/*.java</include> <!-- Check application tests code -->
-      </includes>
-      <eclipse>
-        <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
-      </eclipse>
-      <trimTrailingWhitespace/>
-      <endWithNewline/>
-    </java>
-  </configuration>
-  <executions>
-    <execution>
-      <goals>
-        <goal>check</goal>
-      </goals>
-    </execution>
-  </executions>
+    <groupId>com.diffplug.spotless</groupId>
+    <artifactId>spotless-maven-plugin</artifactId>
+    <version>2.44.5</version>
+    <dependencies>
+        <dependency>
+            <groupId>de.muenchen.oss</groupId>
+            <artifactId>itm-java-codeformat</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+    </dependencies>
+    <configuration>
+        <java>
+            <includes>
+                <include>src/main/java/**/*.java</include>
+                <include>src/test/java/**/*.java</include>
+            </includes>
+            <eclipse>
+                <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
+                <!-- Das hier ist entscheidend, damit es in der LHM Umgebung funktioniert! -->
+                <p2Mirrors>
+                    <p2Mirror>
+                        <prefix>https://download.eclipse.org</prefix>
+                        <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
+                    </p2Mirror>
+                </p2Mirrors>
+            </eclipse>
+            <trimTrailingWhitespace/>
+            <endWithNewline/>
+        </java>
+    </configuration>
+    <executions>
+        <execution>
+            <goals>
+                <goal>check</goal>
+            </goals>
+        </execution>
+    </executions>
 </plugin>
 ```
 
