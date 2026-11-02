@@ -30,7 +30,7 @@ jobs:
       - name: Set up JDK 17 and OSSRH auth / GPG signing
         uses: actions/setup-java@v4
         with:
-          java-version: "17.0.21+9"
+          java-version: "25.0.5+8.0.LTS"
           distribution: "temurin"
           cache: "maven"
           server-id: "central"
